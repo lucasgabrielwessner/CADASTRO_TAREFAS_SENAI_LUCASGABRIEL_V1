@@ -14,22 +14,22 @@ function adicionarTarefa() {
     if (textoTarefa === '') return;
 
     const itemLista = document.createElement('li');
-    itemLista.classList.add('item-tarefa');
-
+    
     const textoSpan = document.createElement('span');
     textoSpan.textContent = textoTarefa;
 
     const acoes = document.createElement('div');
     acoes.classList.add('acoes-tarefa');
     acoes.innerHTML = `
-        <button class="botao-acao concluir"><i class="fa-solid fa-check"></i></button>
-        <button class="botao-acao excluir"><i class="fa-solid fa-trash"></i></button>
+        <button class="concluir"><i class="fa-solid fa-check"></i></button>
+        <button class="excluir"><i class="fa-solid fa-trash"></i></button>
     `;
 
     itemLista.append(textoSpan, acoes);
 
+    // AQUI ESTAVA O ERRO - agora é 'concluida' igual ao CSS
     acoes.querySelector('.concluir').addEventListener('click', () => {
-        itemLista.classList.toggle('item-tarefa-concluida');
+        itemLista.classList.toggle('concluida');
     });
 
     acoes.querySelector('.excluir').addEventListener('click', () => {
