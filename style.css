@@ -12,14 +12,15 @@ body {
     color: #333;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     transition: background .3s ease;
 }
 
 .container {
     width: 100%;
-    max-width: 600px;
-    margin: 180px auto 40px auto;
+    max-width: 700px;
+    margin: 0;
 }
 
 .cartao-aplicacao {
@@ -43,6 +44,11 @@ body {
     font-size: 32px;
 }
 
+.cabecalho-aplicacao div {
+    display: flex;
+    gap: 8px;
+}
+
 .botao-icone {
     width: 42px;
     height: 42px;
@@ -63,12 +69,13 @@ body {
 
 .caixa-entrada {
     display: flex;
-    gap: 12px;
-    margin-bottom: 25px;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 #campo-tarefa {
-    flex: 1;
+    flex: 1 1 100%;
     height: 48px;
     padding: 10px 15px;
     border: 2px solid #ddd;
@@ -83,28 +90,94 @@ body {
     box-shadow: 0 0 0 4px rgba(115, 2, 180, 0.15);
 }
 
-#campo-tarefa::placeholder {
-    color: #999;
-}
-
-.botao-principal {
-    height: 48px;
-    padding: 0 20px;
+.botao-principal,
+.botao-limpar {
+    flex: 1;
+    height: 44px;
+    padding: 0 16px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(90deg, #531279, #7e2bb8);
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
     transition: .3s;
-    box-shadow: 0 5px 15px rgba(115, 2, 180, 0.3);
     white-space: nowrap;
 }
 
-.botao-principal:hover {
+.botao-principal {
+    background: linear-gradient(90deg, #531279, #7e2bb8);
+    box-shadow: 0 5px 15px rgba(115, 2, 180, 0.3);
+}
+
+.botao-limpar {
+    background: linear-gradient(90deg, #bd0707, #791616);
+    box-shadow: 0 5px 15px rgba(197, 11, 11, 0.3);
+}
+
+.botao-principal:hover,
+.botao-limpar:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(115, 2, 180, 0.4);
+}
+
+#contador-tarefas {
+    display: block;
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.caixa-progresso {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barra-progresso {
+    flex: 1;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#progresso-preenchimento {
+    height: 100%;
+    width: 0%;
+    background: #22c55e;
+    transition: width 0.4s ease;
+}
+
+#texto-progresso {
+    font-size: 0.8rem;
+    color: #6b7280;
+    min-width: 80px;
+    text-align: right;
+}
+
+.filtros {
+    display: flex;
+    gap: 8px;
+    margin: 15px 0 20px 0;
+}
+
+.filtro {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+.filtro.ativo {
+    background: linear-gradient(90deg, #531279, #7e2bb8);
+    color: #fff;
+    border-color: #531279;
 }
 
 .lista-tarefas {
@@ -112,7 +185,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    min-height: 50px;
+    min-height: 10px;
+    /* era 50px */
+    margin-top: 10px;
 }
 
 .lista-tarefas li {
@@ -130,17 +205,64 @@ body {
 
 .lista-tarefas li span {
     flex: 1;
-    display: block;
-    text-align: left;
     word-break: break-word;
-    color: #333;
-    font-size: 16px;
 }
 
 .acoes-tarefa {
     display: flex;
     gap: 8px;
     flex-shrink: 0;
+}
+
+.select-prioridade {
+    height: 44px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 2px solid #b6b4b4;
+    background: #ffffff;
+    color: #531279;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+.lista-tarefas li {
+    border-left: 5px solid transparent;
+}
+
+.lista-tarefas li.prioridade-alta {
+    border-left-color: #ef4444;
+}
+
+.lista-tarefas li.prioridade-media {
+    border-left-color: #f59e0b;
+}
+
+.lista-tarefas li.prioridade-baixa {
+    border-left-color: #22c55e;
+}
+
+.tag-prioridade {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 7px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.tag-alta {
+    background: #ef4444;
+    color: white;
+}
+
+.tag-media {
+    background: #f59e0b;
+    color: white;
+}
+
+.tag-baixa {
+    background: #22c55e;
+    color: white;
 }
 
 @keyframes aparecer {
@@ -157,13 +279,11 @@ body {
 
 .lista-tarefas li.concluida {
     background: #f0f0f0;
-    border-color: #e0e0e0;
     opacity: 0.7;
 }
 
 .lista-tarefas li.concluida span {
     text-decoration: line-through;
-    text-decoration-thickness: 2px;
     opacity: 0.5;
     color: #888;
 }
@@ -175,7 +295,6 @@ body {
     border-radius: 8px;
     color: white;
     cursor: pointer;
-    transition: .2s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,38 +304,16 @@ body {
     background: #10b981;
 }
 
-.lista-tarefas li .concluir:hover {
-    background: #059669;
-    transform: scale(1.05);
-}
-
 .lista-tarefas li .excluir {
     background: #ff4757;
 }
 
-.lista-tarefas li .excluir:hover {
-    background: #e84118;
-    transform: scale(1.05);
-}
-
-.lista-tarefas li.concluida .concluir {
-    background: #9ca3af;
-}
-
-.rodape-aplicacao {
-    margin-top: 25px;
-    padding-top: 18px;
-    border-top: 1px solid #eee;
-    text-align: center;
-    color: #888;
-    font-size: 14px;
-}
 .rodape-aplicacao {
     margin-top: 25px;
     padding-top: 18px;
     border-top: 1px solid #eee;
     display: flex;
-    flex-direction: column; /* foto em cima */
+    flex-direction: column;
     align-items: center;
     gap: 10px;
     text-align: center;
@@ -232,8 +329,164 @@ body {
     border: 3px solid #531279;
 }
 
-.rodape-aplicacao p {
-    margin: 0;
+.linha-controles {
+    display: flex;
+    gap: 10px;
+    flex: 1 1 100%;
+}
+
+.input-data {
+    height: 44px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    background: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+}
+
+.data-vencimento {
+    font-size: 11px;
+    padding: 3px 7px;
+    border-radius: 20px;
+    background: #e5e7eb;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.data-vencimento.hoje {
+    background: #3b82f6;
+    color: white;
+}
+
+.data-vencimento.atrasada {
+    background: #ef4444;
+    color: white;
+    animation: piscar 1s infinite alternate;
+}
+
+.data-vencimento.amanha {
+    background: #f59e0b;
+    color: white;
+}
+
+@keyframes piscar {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.7;
+    }
+}
+
+.linha-controles {
+    display: flex;
+    gap: 8px;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+}
+
+.select-prioridade,
+.input-data {
+    height: 44px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    background: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+}
+
+.lista-tarefas li {
+    border-left: 5px solid transparent;
+}
+
+.lista-tarefas li.prioridade-alta {
+    border-left-color: #ef4444;
+}
+
+.lista-tarefas li.prioridade-media {
+    border-left-color: #f59e0b;
+}
+
+.lista-tarefas li.prioridade-baixa {
+    border-left-color: #22c55e;
+}
+
+.tags-linha {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tag-prioridade,
+.tag-categoria,
+.data-vencimento {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.tag-alta {
+    background: #ef4444;
+}
+
+.tag-media {
+    background: #f59e0b;
+}
+
+.tag-baixa {
+    background: #22c55e;
+}
+
+.tag-categoria {
+    background: #6366f1;
+}
+
+.tag-categoria.trabalho {
+    background: #0ea5e9;
+}
+
+.tag-categoria.estudo {
+    background: #8b5cf6;
+}
+
+.tag-categoria.pessoal {
+    background: #10b981;
+}
+
+.tag-categoria.compras {
+    background: #f97316;
+}
+
+.tag-categoria.saude {
+    background: #ec4899;
+}
+
+.data-vencimento {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.data-vencimento.hoje {
+    background: #3b82f6;
+    color: white;
+}
+
+.data-vencimento.atrasada {
+    background: #ef4444;
+    color: white;
+}
+
+.data-vencimento.amanha {
+    background: #f59e0b;
+    color: white;
 }
 
 /* MODO ESCURO */
@@ -246,7 +499,8 @@ body.modo-escuro .cartao-aplicacao {
 }
 
 body.modo-escuro .cabecalho-aplicacao h1,
-body.modo-escuro #contador-tarefas {
+body.modo-escuro #contador-tarefas,
+body.modo-escuro #texto-progresso {
     color: #f7fafc;
 }
 
@@ -265,7 +519,6 @@ body.modo-escuro .botao-icone {
 body.modo-escuro .lista-tarefas li {
     background: #2a2a40;
     border-color: #3e3e5e;
-    color: #f7fafc;
 }
 
 body.modo-escuro .lista-tarefas li span {
@@ -276,40 +529,84 @@ body.modo-escuro .lista-tarefas li.concluida span {
     color: #888;
 }
 
+body.modo-escuro .filtro {
+    background: #2d2d44;
+    border-color: #4a4a6a;
+    color: #fff;
+}
+
+body.modo-escuro .filtro.ativo {
+    background: linear-gradient(90deg, #531279, #7e2bb8);
+}
+
+body.modo-escuro .barra-progresso {
+    background: #374151;
+}
+
 body.modo-escuro .rodape-aplicacao {
     border-color: #3e3e5e;
 }
 
-body.modo-escuro footer {
-    background: #1e1e2e;
-    color: #a1a1c2;
-    border-top: 1px solid #3e3e5e;
-    box-shadow: 0 -3px 10px rgba(0, 0, 0, .4);
+body.modo-escuro .tag-alta {
+    background: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+    border: 1px solid #ef4444;
 }
 
-body.modo-escuro .rodape-aplicacao {
-    border-color: #3e3e5e;
+body.modo-escuro .tag-media {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fcd34d;
+    border: 1px solid #f59e0b;
 }
 
-body.modo-escuro .rodape-aplicacao img {
-    border-color: #7e2bb8;
+body.modo-escuro .tag-baixa {
+    background: rgba(34, 197, 94, 0.25);
+    color: #86efac;
+    border: 1px solid #22c55e;
 }
 
-footer {
-    background: #ffffff;
-    text-align: center;
-    padding: 15px;
-    color: #666;
-    box-shadow: 0 -3px 10px rgba(0, 0, 0, .15);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+body.modo-escuro .lista-tarefas li.prioridade-alta {
+    border-left-color: #ef4444;
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.15), #2a2a40);
+}
+
+body.modo-escuro .lista-tarefas li.prioridade-media {
+    border-left-color: #f59e0b;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), #2a2a40);
+}
+
+body.modo-escuro .lista-tarefas li.prioridade-baixa {
+    border-left-color: #22c55e;
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.15), #2a2a40);
+}
+
+body.modo-escuro.input-data {
+    background: #2d2d44;
+    border-color: #4a4a6a;
+    color: #fff;
+    color-scheme: dark;
+}
+
+body.modo-escuro.data-vencimento {
+    background: #374151;
+}
+
+body.modo-escuro.select-prioridade,
+body.modo-escuro.input-data {
+    background: #2d2d44;
+    border-color: #4a4a6a;
+    color: #fff;
+    color-scheme: dark;
+}
+
+body.modo-escuro.tag-categoria {
+    opacity: 0.9;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 600px) {
     body {
-        padding: 20px 12px 80px 12px;
+        padding: 20px 12px;
     }
 
     .cartao-aplicacao {
@@ -319,13 +616,5 @@ footer {
 
     .cabecalho-aplicacao h1 {
         font-size: 24px;
-    }
-
-    .caixa-entrada {
-        flex-direction: column;
-    }
-
-    .botao-principal {
-        width: 100%;
     }
 }

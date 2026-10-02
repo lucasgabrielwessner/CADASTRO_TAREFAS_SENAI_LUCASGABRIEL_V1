@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,24 +8,53 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <div class="cartao-aplicacao">
             <header class="cabecalho-aplicacao">
                 <h1>Minhas Tarefas</h1>
-                <button id="botao-tema" class="botao-icone">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
+                <div>
+                    <button id="botao-changelog" class="botao-icone"><i class="fa-solid fa-circle-info"></i></button>
+                    <button id="botao-tema" class="botao-icone"><i class="fa-solid fa-moon"></i></button>
+                </div>
             </header>
+
             <div class="caixa-entrada">
                 <input type="text" id="campo-tarefa" placeholder="O que vamos fazer hoje?..." maxlength="40">
-                <button id="botao-adicionar" class="botao-principal">
-                    <i class="fa-solid fa-plus"></i> Adicionar
-                </button>
+                <div class="linha-controles">
+                    <select id="prioridade-tarefa" class="select-prioridade">
+                        <option value="baixa">🟢 Baixa</option>
+                        <option value="media" selected>🟡 Média</option>
+                        <option value="alta">🔴 Alta</option>
+                    </select>
+                    <select id="categoria-tarefa" class="select-prioridade">
+                        <option value="pessoal">🏠 Pessoal</option>
+                        <option value="trabalho">💼 Trabalho</option>
+                        <option value="estudo">📚 Estudo</option>
+                        <option value="compras">🛒 Compras</option>
+                        <option value="saude">❤️ Saúde</option>
+                    </select>
+                    <input type="date" id="data-tarefa" class="input-data">
+                </div>
+                <button id="botao-adicionar" class="botao-principal">+ Adicionar</button>
+                <button id="botao-limpar" class="botao-limpar" type="button">Limpar Tudo</button>
+            </div>
+
+            <span id="contador-tarefas">0 tarefas na lista</span>
+            <div class="caixa-progresso">
+                <div class="barra-progresso">
+                    <div id="progresso-preenchimento"></div>
+                </div>
+                <span id="texto-progresso">0% concluído</span>
+            </div>
+            <div class="filtros">
+                <button class="filtro ativo" data-filtro="todas">Todas</button>
+                <button class="filtro" data-filtro="pendentes">Pendentes</button>
+                <button class="filtro" data-filtro="concluidas">Concluídas</button>
             </div>
             <ul id="lista-tarefas" class="lista-tarefas"></ul>
-            <span id="contador-tarefas">0 tarefas na lista</span>
-            <footer class="rodape-aplicacao">  
+            <footer class="rodape-aplicacao">
                 <img src="me.jpg" alt="">
                 <p>&copy; 2026 - Desenvolvido por Lucas Gabriel Vieira Wessner</p>
             </footer>
@@ -32,4 +62,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
